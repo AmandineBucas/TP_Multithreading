@@ -16,7 +16,7 @@ int main (int argc, char* argv[]) {
   int port = atoi(argv[1]);
 
   cout << "running....\n";	
-	std::list<ServerSocket> listSocket;  
+	//std::list<ServerSocket> listSocket;  
   try {
     ServerSocket server ( port );
 
@@ -24,7 +24,7 @@ int main (int argc, char* argv[]) {
 
       ServerSocket new_sock;
       server.accept ( new_sock );
-			listSocket.push_back (new_sock);
+			//listSocket.push_back (new_sock);
 
 			if(fork() == 0){
 				try {
@@ -35,10 +35,11 @@ int main (int argc, char* argv[]) {
 						/*Affichage data*/
 						cout << data << endl;
 						/*Envoi reponse*/
+						/* Erreur serveur status = -1 et errno = 9
 						for (std::list<ServerSocket>::iterator it=listSocket.begin(); it != listSocket.end(); ++it){
 							ServerSocket sock = *it;
-							sock << "test";
-						}
+							sock << data;
+						}*/
 						new_sock << data;
 					}
 				} catch ( SocketException& ) {}
